@@ -1,10 +1,11 @@
 {
   "name": "file-tree-creator",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Create folder and file structures from tree or flat path inputs",
   "main": "lib/createStructure.js",
   "bin": {
-    "file-tree-creator": "./bin/cli.js"
+    "file-tree-creator": "./bin/cli.js",
+    "ftc": "./bin/cli.js"
   },
   "directories": {
     "lib": "lib",
@@ -22,5 +23,9 @@
   ],
   "author": "_festuscharles",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/festuscharles-n/file-tree-creator.git"
+  },
   "type": "commonjs"
 }
