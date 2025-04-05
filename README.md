@@ -1,45 +1,34 @@
-Sure! Here's a fully polished, developer-friendly, and easy-to-follow `README.md` for your **`file-tree-creator`** NPM package:
-
----
-
 ```markdown
-# 📁 file-tree-creator
+# 📁 file-tree-creator [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> Easily generate file and folder structures from visual tree diagrams or flat path listings. Perfect for project bootstrapping!
-
----
-
-## 🚀 What is it?
-
-`file-tree-creator` is a CLI tool that helps you **create files and directories** from either:
-
-- a **tree-style diagram** (like the ones you paste in docs or GitHub), or  
-- a **flat path-style list** (like `src/index.js`, `src/components/Header.js`)
-
-Use it to scaffold out your project in seconds!
+> Scaffold project structures in seconds from visual tree diagrams or path lists
 
 ---
 
-## 📦 Features
+## 🌟 Features
 
-✅ Tree-style diagram support  
-✅ Flat path-style list support  
-✅ Mixed indentation handling  
-✅ File & folder auto-detection  
-✅ CLI usage (no setup needed)  
-✅ Helpful error messages
+✅ **Dual Input Modes** - Tree diagrams or flat path lists  
+✅ **Smart Detection** - Auto-recognizes files vs folders  
+✅ **Mixed Indentation** - Handles spaces/tabs interchangeably  
+✅ **Zero Config** - Works out of the box with minimal setup  
+✅ **Safe Execution** - Never overwrites existing files  
+✅ **Developer Friendly** - Clear errors and helpful warnings  
 
 ---
 
-## 📥 Installation
+## 🚀 Quick Start
 
-### Use without installing (recommended for one-time usage):
+### One-Time Usage (no installation):
 
 ```bash
-npx file-tree-creator <input.txt> [flat]
+npx file-tree-creator <input-file> [mode]
 ```
 
-### Or install globally:
+**Modes**:  
+- `tree` (default) for visual diagrams  
+- `flat` for path lists  
+
+### Global Installation:
 
 ```bash
 npm install -g file-tree-creator
@@ -47,130 +36,140 @@ npm install -g file-tree-creator
 
 ---
 
-## ✨ Usage Guide
+## 📖 Usage Examples
 
-### 📂 1. Tree-style input (default mode)
+### 1. Tree Diagram Mode (Default)
 
-Create a file like `structure.txt` with this content:
-
-```
+**structure.txt**:
+```text
 ├── src
 │   ├── index.js
-│   └── utils
-│       └── helper.js
-├── .gitignore
+│   └── components
+│       ├── Button.js
+│       └── Header.js
+├── public
+│   └── favicon.ico
 └── README.md
 ```
 
-Then run:
-
+Generate structure:
 ```bash
 npx file-tree-creator structure.txt
+# or
+ftc structure.txt
 ```
 
-This will automatically create:
+### 2. Flat Path Mode
 
-```
-src/
-├── index.js
-└── utils/
-    └── helper.js
-.gitignore
-README.md
+**paths.txt**:
+```text
+src/utils/helpers.js
+tests/unit/example.test.js
+.config.json
 ```
 
----
-
-### 📄 2. Flat path-style input
-
-Create `flat.txt`:
-
-```
-src/index.js
-src/utils/helper.js
-.gitignore
-README.md
-```
-
-Run it like this:
-
+Generate structure:
 ```bash
-npx file-tree-creator flat.txt flat
+npx file-tree-creator paths.txt flat
 ```
 
 ---
 
-## 🧪 Example Project Setup
+## 🛠 Integration Guide
 
-```bash
-mkdir my-new-project && cd my-new-project
-echo "├── src\n│   └── index.js\n└── README.md" > structure.txt
-npx file-tree-creator structure.txt
-```
+### Use in npm Scripts
 
-Done! ✨ Now `my-new-project` has:
-
-```
-src/
-└── index.js
-README.md
-```
-
----
-
-## 🧱 Use Inside Scripts
-
-Install it locally:
-
+1. Install locally:
 ```bash
 npm install --save-dev file-tree-creator
 ```
 
-In `package.json`:
-
+2. Add to package.json:
 ```json
-"scripts": {
-  "scaffold": "file-tree-creator structure.txt"
+{
+  "scripts": {
+    "scaffold": "file-tree-creator structure.txt",
+    "build:structure": "ftc paths.txt flat"
+  }
 }
 ```
 
-Run with:
-
+3. Run with:
 ```bash
 npm run scaffold
 ```
 
 ---
 
-## ❗ Error Handling
+## 🚨 Error Handling & Validation
 
-- If your input contains malformed tree lines or invalid paths, you'll get a clear error message.
-- It will not overwrite existing files.
-- Empty lines or comments (`# ...`) are ignored.
-
----
-
-## 🙋 FAQ
-
-**Q: Does it create empty folders?**  
-Yes, as long as you list them in the tree or path format.
-
-**Q: Does it overwrite files?**  
-No, it will skip files that already exist.
-
-**Q: Can I use this for code generators?**  
-Absolutely! Combine it with templates or starter files for a powerful custom scaffolding tool.
+The tool will:
+- Skip existing files/folders (no overwrites)
+- Ignore empty lines and comments starting with `#`
+- Validate these error cases:
+  ```text
+  [ERROR] Duplicate path detected: src/index.js
+  [WARN]  Skipped existing file: public/favicon.ico
+  [ERROR] Invalid tree syntax at line 3:
+          ├── malformed-line
+  ```
 
 ---
 
-## 👤 Author
+## 📚 FAQ
 
-Made with ❤️ by [Festus Charles](https://github.com/festuscharles-n)
+### **Q: How are files vs folders determined?**
+A: Any path ending with `/` is treated as a folder. In tree mode, items without extensions are considered folders.
+
+### **Q: Can I use variables or templates?**
+A: Not directly, but you can pipe through other tools:
+```bash
+cat template.txt | envsubst | file-tree-creator
+```
+
+### **Q: What character encodings are supported?**
+A: UTF-8 exclusively. Ensure your input files are properly encoded.
+
+---
+
+## 🧪 Real-World Example
+
+**Create a React component library**:
+```bash
+mkdir my-library && cd my-library
+
+cat > structure.txt <<EOF
+├── src
+│   ├── components
+│   │   ├── Button
+│   │   │   ├── index.jsx
+│   │   │   └── style.css
+│   │   └── Icon
+│   │       ├── index.jsx
+│   │       └── Icon.jsx
+│   └── index.js
+├── .npmignore
+└── package.json
+EOF
+
+npx file-tree-creator structure.txt
+```
+
+---
+
+## 👩💻 Contributing
+
+PRs welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Add tests for any new functionality
+4. Submit PR with detailed description
 
 ---
 
 ## 📜 License
 
-MIT
+MIT © [Festus Charles](https://github.com/festuscharles-n)
 
----
+*Like this tool? Star the repo ⭐ and share with your team!*
+```

@@ -1,6 +1,6 @@
 {
   "name": "file-tree-creator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Create folder and file structures from tree or flat path inputs",
   "main": "lib/createStructure.js",
   "bin": {
