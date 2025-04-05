@@ -1,175 +1,174 @@
-```markdown
-# 📁 file-tree-creator [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# File Tree Creator 🌳📂
 
-> Scaffold project structures in seconds from visual tree diagrams or path lists
+A powerful CLI tool and library to generate file and folder structures from both tree diagrams and flat path lists. Perfect for quickly scaffolding projects or creating complex directory structures with a single command.
 
----
+## Features ✨
 
-## 🌟 Features
+- **Dual Input Modes**: Supports both tree diagrams (`│ ├── └──`) and flat path lists
+- **Smart Parsing**: Handles comments (lines starting with `#`) and validates paths
+- **Safe Operations**: Skips existing files and validates path characters
+- **Recursive Creation**: Automatically creates all necessary parent directories
+- **CLI & Programmable**: Use via command line or import as a library
 
-✅ **Dual Input Modes** - Tree diagrams or flat path lists  
-✅ **Smart Detection** - Auto-recognizes files vs folders  
-✅ **Mixed Indentation** - Handles spaces/tabs interchangeably  
-✅ **Zero Config** - Works out of the box with minimal setup  
-✅ **Safe Execution** - Never overwrites existing files  
-✅ **Developer Friendly** - Clear errors and helpful warnings  
+## Installation 💿
 
----
-
-## 🚀 Quick Start
-
-### One-Time Usage (no installation):
-
-```bash
-npx file-tree-creator <input-file> [mode]
-```
-
-**Modes**:  
-- `tree` (default) for visual diagrams  
-- `flat` for path lists  
-
-### Global Installation:
-
+### Global Install (recommended for CLI usage)
 ```bash
 npm install -g file-tree-creator
 ```
 
----
+### Local Project Install
+```bash
+npm install file-tree-creator --save-dev
+```
 
-## 📖 Usage Examples
+## Usage 🚀
 
-### 1. Tree Diagram Mode (Default)
+### CLI Usage
+```bash
+ftc <input-file> [--mode=tree|flat]
+```
+or
+```bash
+npx file-tree-creator <input-file> [--mode=tree|flat]
+```
 
-**structure.txt**:
-```text
+#### Examples:
+1. From a tree diagram:
+```bash
+ftc structure.txt
+# or explicitly
+ftc structure.txt --mode=tree
+```
+
+2. From flat paths:
+```bash
+ftc paths.txt --mode=flat
+```
+
+### Programmatic Usage
+```javascript
+const { parseTreeDiagram, parseFlatPath, createFileStructure } = require('file-tree-creator');
+
+// Using tree diagram
+const treeInput = `
 ├── src
 │   ├── index.js
-│   └── components
-│       ├── Button.js
-│       └── Header.js
-├── public
-│   └── favicon.ico
-└── README.md
+│   └── utils
+│       └── helper.js
+`;
+const paths = parseTreeDiagram(treeInput);
+createFileStructure(paths, './my-project');
+
+// Using flat paths
+const flatInput = `
+src/index.js
+src/utils/helper.js
+README.md
+`;
+const flatPaths = parseFlatPath(flatInput);
+createFileStructure(flatPaths, './my-project');
 ```
 
-Generate structure:
-```bash
-npx file-tree-creator structure.txt
-# or
-ftc structure.txt
+## Input Formats 📝
+
+### Tree Diagram Format
 ```
-
-### 2. Flat Path Mode
-
-**paths.txt**:
-```text
-src/utils/helpers.js
-tests/unit/example.test.js
-.config.json
-```
-
-Generate structure:
-```bash
-npx file-tree-creator paths.txt flat
-```
-
----
-
-## 🛠 Integration Guide
-
-### Use in npm Scripts
-
-1. Install locally:
-```bash
-npm install --save-dev file-tree-creator
-```
-
-2. Add to package.json:
-```json
-{
-  "scripts": {
-    "scaffold": "file-tree-creator structure.txt",
-    "build:structure": "ftc paths.txt flat"
-  }
-}
-```
-
-3. Run with:
-```bash
-npm run scaffold
-```
-
----
-
-## 🚨 Error Handling & Validation
-
-The tool will:
-- Skip existing files/folders (no overwrites)
-- Ignore empty lines and comments starting with `#`
-- Validate these error cases:
-  ```text
-  [ERROR] Duplicate path detected: src/index.js
-  [WARN]  Skipped existing file: public/favicon.ico
-  [ERROR] Invalid tree syntax at line 3:
-          ├── malformed-line
-  ```
-
----
-
-## 📚 FAQ
-
-### **Q: How are files vs folders determined?**
-A: Any path ending with `/` is treated as a folder. In tree mode, items without extensions are considered folders.
-
-### **Q: Can I use variables or templates?**
-A: Not directly, but you can pipe through other tools:
-```bash
-cat template.txt | envsubst | file-tree-creator
-```
-
-### **Q: What character encodings are supported?**
-A: UTF-8 exclusively. Ensure your input files are properly encoded.
-
----
-
-## 🧪 Real-World Example
-
-**Create a React component library**:
-```bash
-mkdir my-library && cd my-library
-
-cat > structure.txt <<EOF
 ├── src
-│   ├── components
-│   │   ├── Button
-│   │   │   ├── index.jsx
-│   │   │   └── style.css
-│   │   └── Icon
-│   │       ├── index.jsx
-│   │       └── Icon.jsx
-│   └── index.js
-├── .npmignore
-└── package.json
-EOF
-
-npx file-tree-creator structure.txt
+│   ├── index.js
+│   └── utils
+│       └── helper.js
+├── README.md
+└── .gitignore
 ```
+
+### Flat Path Format
+```
+src/index.js
+src/utils/helper.js
+README.md
+.gitignore
+```
+
+### Comments
+Both formats support comments (lines starting with `#`):
+```
+# This is a comment
+src/index.js  # This part will be parsed
+# Another comment
+```
+
+## API Reference 📚
+
+### `parseTreeDiagram(treeText)`
+Parses a tree diagram string into an array of paths.
+
+**Parameters:**
+- `treeText` (String): The tree diagram text
+
+**Returns:**
+- Array of path strings
+
+### `parseFlatPath(flatText)`
+Parses a flat path list into an array of paths.
+
+**Parameters:**
+- `flatText` (String): The flat path text
+
+**Returns:**
+- Array of path strings
+
+### `createFileStructure(paths, baseDir = process.cwd())`
+Creates the file structure from an array of paths.
+
+**Parameters:**
+- `paths` (Array): Array of path strings
+- `baseDir` (String): Base directory to create structure in (defaults to current directory)
+
+## Error Handling 🛑
+
+The tool handles several error cases gracefully:
+- Skips existing files/folders with warning
+- Rejects paths with invalid characters (`<>:"|?*`)
+- Rejects paths with double slashes (`//`)
+- Provides clear error messages for file system operations
+
+## Examples 🏗️
+
+See the `examples/` directory for sample input files:
+- `tree.txt`: Tree diagram example
+- `flat.txt`: Flat path example
+
+## Roadmap & Suggestions for Improvement 🛣️
+
+### Planned Features
+1. **Interactive Mode**: Prompt for confirmation before creating each file/folder
+2. **Template Support**: Support placeholders/variables in file contents
+3. **Dry Run Option**: Show what would be created without actually making changes
+4. **Visual Output**: Option to display the created structure as a tree
+5. **Git Integration**: Automatically stage created files in git
+
+### Potential Enhancements
+1. **File Content Support**: Allow specifying initial file content in the input
+2. **Permissions**: Support setting file permissions during creation
+3. **Glob Patterns**: Support glob patterns in flat mode
+4. **JSON/YAML Input**: Support structured input formats
+5. **Progress Bar**: Visual feedback for large structures
+6. **Undo Functionality**: Track created files for potential rollback
+7. **Cross-Platform Testing**: Ensure consistent behavior across OSes
+
+## Contributing 🤝
+
+Contributions are welcome! Please open an issue or PR for any:
+- Bug reports
+- Feature requests
+- Documentation improvements
+- Test cases
+
+## License 📄
+
+MIT © Festus Charles
 
 ---
 
-## 👩💻 Contributing
-
-PRs welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for any new functionality
-4. Submit PR with detailed description
-
----
-
-## 📜 License
-
-MIT © [Festus Charles](https://github.com/festuscharles-n)
-
-*Like this tool? Star the repo ⭐ and share with your team!*
-```
+Enjoy creating file structures with ease! 🎯
