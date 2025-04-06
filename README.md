@@ -144,7 +144,7 @@ ftc paths.txt
 
 # Strict mode
 ftc paths.txt --strict
-
+```
 ## Error Handling 🛑
 
 The tool handles several error cases gracefully:
