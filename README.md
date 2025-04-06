@@ -159,24 +159,6 @@ See the `examples/` directory for sample input files:
 - `tree.txt`: Tree diagram example
 - `flat.txt`: Flat path example
 
-## Roadmap & Suggestions for Improvement 🛣️
-
-### Planned Features
-1. **Interactive Mode**: Prompt for confirmation before creating each file/folder
-2. **Template Support**: Support placeholders/variables in file contents
-3. **Dry Run Option**: Show what would be created without actually making changes
-4. **Visual Output**: Option to display the created structure as a tree
-5. **Git Integration**: Automatically stage created files in git
-
-### Potential Enhancements
-1. **File Content Support**: Allow specifying initial file content in the input
-2. **Permissions**: Support setting file permissions during creation
-3. **Glob Patterns**: Support glob patterns in flat mode
-4. **JSON/YAML Input**: Support structured input formats
-5. **Progress Bar**: Visual feedback for large structures
-6. **Undo Functionality**: Track created files for potential rollback
-7. **Cross-Platform Testing**: Ensure consistent behavior across OSes
-
 ## Contributing 🤝
 
 Contributions are welcome! Please open an issue or PR for any:

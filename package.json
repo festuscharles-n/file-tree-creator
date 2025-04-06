@@ -1,7 +1,7 @@
 {
   "name": "file-tree-creator",
-  "version": "1.0.7",
-  "description": "Create folder and file structures from tree or flat path inputs",
+  "version": "1.0.8",
+  "description": "Secure file/folder structure generator with support for both tree diagrams and flat paths. Perfect for project scaffolding and boilerplate generation.",
   "main": "lib/createStructure.js",
   "bin": {
     "file-tree-creator": "./bin/cli.js",
@@ -16,11 +16,27 @@
   },
   "keywords": [
     "file-structure",
-    "cli",
+    "directory-generator",
+    "scaffolding",
     "project-generator",
-    "scaffold",
-    "tree"
+    "boilerplate",
+    "tree-diagram",
+    "cli-tool",
+    "productivity",
+    "developer-tools",
+    "secure",
+    "filetree",
+    "file-tree",
+    "file-structure-generator",
+    "folder-structure",
+    "folder-generator",
+    "folder-tree",
+    "folder-diagram"
   ],
+  "homepage": "https://github.com/festuscharles-n/file-tree-creator#readme",
+  "bugs": {
+    "url": "https://github.com/festuscharles-n/file-tree-creator/issues"
+  },
   "author": "_festuscharles",
   "license": "MIT",
   "repository": {
