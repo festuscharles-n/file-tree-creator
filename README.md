@@ -125,6 +125,26 @@ Creates the file structure from an array of paths.
 - `paths` (Array): Array of path strings
 - `baseDir` (String): Base directory to create structure in (defaults to current directory)
 
+### Strict vs Lenient Modes
+
+By default, the tool runs in **lenient mode**:
+- Continues after errors
+- Shows warnings for invalid paths
+- Returns exit code 0 unless catastrophic failure occurs
+
+Use `--strict` flag for **strict mode**:
+- Fails immediately on first error
+- Returns exit code 1 if any errors occur
+- Recommended for CI/CD environments
+
+Examples:
+```bash
+# Lenient mode (default)
+ftc paths.txt
+
+# Strict mode
+ftc paths.txt --strict
+
 ## Error Handling 🛑
 
 The tool handles several error cases gracefully:
