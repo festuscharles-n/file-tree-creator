@@ -6,23 +6,35 @@ const {
   parseFlatPath,
   createFileStructure,
 } = require('../lib/createStructure');
+const pkg = require('../package.json');
 
 function showHelp() {
   console.log(`
-  ❕Usage:
-    npx file-tree-creator <input-file> [--mode=tree|flat] [--strict]
-    ftc <input-file> [--mode=tree|flat] [--strict]
+  ╭──────────────────────────────────────────────╮
+  │  🗂  File Tree Creator (ftc) v${pkg.version.padEnd(10)} │
+  ╰──────────────────────────────────────────────╯
 
-  Options:
-    --mode=tree|flat   Specify input format (default: tree)
-    --strict          Fail on any error (default: lenient mode)
-    --help, -h       Show this help
-    --version, -v    Show version
+  🌳  Create directory structures from:
+  • Tree diagrams │ default
+  • Flat path lists
 
-  Examples:
-    ftc structure.txt
-    ftc paths.txt --mode=flat --strict
-`);
+  🛠️  Usage:
+     ftc <input-file> [--mode=tree|flat] [--strict]
+
+  ⚙️  Options:
+     --mode=tree|flat   Input format (default: tree)
+     --strict           Fail on errors (default: lenient mode)
+     --help │ -h        Show this help
+     --version │ -v     Show version
+
+  💡 Examples:
+     ftc structure.txt
+     ftc paths.txt --mode=flat
+     ftc large-structure.txt --strict
+
+  ──────────────────────────────────
+  ⚡️ Crafted by _festuscharles
+  `);
   process.exit(0);
 }
 

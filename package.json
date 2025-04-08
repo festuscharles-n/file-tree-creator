@@ -1,6 +1,6 @@
 {
   "name": "file-tree-creator",
-  "version": "1.2.4",
+  "version": "1.2.6",
   "description": "Secure file/folder structure generator with support for both tree diagrams and flat paths. Perfect for project scaffolding and boilerplate generation.",
   "main": "lib/createStructure.js",
   "bin": {
